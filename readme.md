@@ -217,12 +217,6 @@ Suggested code-style checks:
 
 ---
 
-## License
-
-No license file was included in the repository. Without an explicit license, the project is effectively "All rights reserved". If you intend to open-source this project, add a license (for example MIT, Apache-2.0, or GPL) by adding a `LICENSE` file.
-
----
-
 ## Notes & known issues
 
 - Some Python files contain placeholder lines (literal `...`) which suggest parts of the implementation may be missing or were redacted. Please inspect and restore full implementations in `blog_app/models.py` and `blog_app/views.py` where necessary.
@@ -231,11 +225,26 @@ No license file was included in the repository. Without an explicit license, the
 
 ---
 
-If you want, I can also:
 
-- Prepare a `.env.example` and show how to load secrets safely
-- Create a `Procfile` / simple deployment guide for Gunicorn + Nginx or for a PaaS (Heroku-like)
-- Produce a `Dockerfile` and `docker-compose.yml` for local development
+# MIT License
 
-Let me know which of the above you prefer and I will add it to the README or create the supporting files.
+Copyright (c) 2025 MD ISMAIL BHUYAN
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
