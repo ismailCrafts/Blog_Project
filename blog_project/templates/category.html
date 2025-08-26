@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block header %}
+<!-- your header here -->
+{% endblock header %}
+
+{% block body %}
+<section class="page-header">
+    <div class="container-xl">
+        <div class="text-center">
+            <h1 class="mt-0 mb-2">{{ current_category.name }}</h1>
+        </div>
+    </div>
+</section>
+
+<section class="main-content">
+    <div class="container-xl">
+        <div class="row gy-4">
+            <div class="col-lg-8">
+                <div class="row gy-4">
+                    {% for blog in blog_cat %}
+                    <div class="col-sm-6">
+                        <div class="post post-grid rounded bordered">
+                            <div class="thumb top-rounded">
+                                <a href="{% url 'category' blog.category.pk %}" class="category-badge position-absolute">{{ blog.category.name }}</a>
+                                <a href="{% url 'blog_detail' blog.pk %}">
+                                    <div class="inner">
+                                        <img src="{{ blog.image.url }}" alt="{{ blog.title }}" />
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="details">
+                                <ul class="meta list-inline mb-0">
+                                    <li class="list-inline-item">{{ blog.author }}</li>
+                                    <li class="list-inline-item">{{ blog.publish_date|date:"d M Y" }}</li>
+                                </ul>
+                                <h5 class="post-title mb-3 mt-3"><a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }}</a></h5>
+                                <p class="excerpt mb-0">{{ blog.short_description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p>No blogs found in this category.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <div class="widget rounded">
+                        <div class="widget-header text-center">
+                            <h3 class="widget-title">Categories</h3>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="list">
+                                {% for categorie in categories %}
+                                <li>
+                                    <a href="{% url 'category' categorie.pk %}">{{ categorie.name }}</a>
+                                    <span>({{ categorie.blog_set.count }})</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}

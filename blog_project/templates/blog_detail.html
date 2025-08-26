@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+<header class="header-default">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-xl">
+            <!-- Logo -->
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'images/logo.svg' %}" alt="logo">
+            </a>
+
+            <!-- Menu -->
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Header buttons -->
+            <div class="header-buttons">
+                <button class="search icon-button"><i class="icon-magnifier"></i></button>
+                <button class="burger-menu icon-button"><span class="burger-icon"></span></button>
+            </div>
+        </div>
+    </nav>
+</header>
+{% endblock header %}
+
+{% block body %}
+<section class="main-content mt-3">
+    <div class="container-xl">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">{{ post.category.name }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ post.title }}</li>
+            </ol>
+        </nav>
+
+        <div class="row gy-4">
+            <!-- Main post content -->
+            <div class="col-lg-8">
+                <div class="post post-single">
+                    <!-- Post header -->
+                    <div class="post-header">
+                        <h1 class="title mt-0 mb-3">{{ post.title }}</h1>
+                        <ul class="meta list-inline mb-0">
+                            <li class="list-inline-item">By {{ post.author }}</li>
+                            <li class="list-inline-item">{{ post.date }}</li>
+                            <li class="list-inline-item">{{ post.views }} views</li>
+                        </ul>
+                    </div>
+
+                    <!-- Featured image -->
+                    <div class="featured-image">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                    </div>
+
+                    <!-- Post content -->
+                    <div class="post-content">
+                        <p>{{ post.content }}</p>
+                    </div>
+
+                    <!-- Post tags & social -->
+                    <div class="post-bottom">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="tag">#{{ post.section }}</span>
+                            </div>
+                            <ul class="social-icons list-inline mb-0">
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="spacer" data-height="50"></div>
+
+                <div class="spacer" data-height="50"></div>
+
+                <!-- Comments -->
+                <div class="section-header mb-3">
+                    <h3>Comments ({{ comments.count }})</h3>
+                </div>
+                <div class="comments">
+                    {% for comment in comments %}
+                    <div class="comment mb-3 p-3 border rounded">
+                        <strong>{{ comment.name }}</strong> <span class="text-muted">{{ comment.date }}</span>
+                        <p>{{ comment.comment }}</p>
+                    </div>
+                    {% empty %}
+                    <p>No comments yet. Be the first to comment!</p>
+                    {% endfor %}
+                </div>
+
+                <div class="spacer" data-height="50"></div>
+
+                <!-- Comment form -->
+                <div class="section-header mb-3">
+                    <h3>Leave a Comment</h3>
+                </div>
+                <form method="post" action="{% url 'add_comment' post.pk %}" class="comment-form p-3 border rounded">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <textarea name="InputComment" class="form-control" rows="4" placeholder="Your comment..." required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="InputName" class="form-control" placeholder="Your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="InputEmail" class="form-control" placeholder="Your email" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                </form>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+                    <!-- Categories -->
+                    <div class="widget mb-4 p-3 border rounded">
+                        <h5>Categories</h5>
+                        <ul class="list-unstyled">
+                            {% for cat in categories %}
+                            <li><a href="{% url 'category' cat.pk %}">{{ cat.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <!-- Recent posts -->
+                    <div class="widget mb-4 p-3 border rounded">
+                        <h5>Recent Posts</h5>
+                        <ul class="list-unstyled">
+                            {% for recent_post in recent_rest %}
+                            <li><a href="{% url 'blog_detail' recent_post.pk %}">{{ recent_post.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+{% endblock body %}

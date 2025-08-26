@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us{% endblock title %}
+
+{% block body %}
+
+<!-- page header -->
+<section class="page-header">
+    <div class="container-xl">
+        <div class="text-center">
+            <h1 class="mt-0 mb-2">About Us</h1>
+            <p class="lead">Exploring Technology, AI, Agriculture, and Innovations</p>
+        </div>
+    </div>
+</section>
+
+<!-- main content -->
+<section class="main-content">
+    <div class="container-xl">
+        <div class="row gy-4">
+
+            <!-- main content column -->
+            <div class="col-lg-8">
+
+                <!-- About Text -->
+                <div class="padding-30 rounded bordered">
+                    <h2>Our Mission</h2>
+                    <p>We aim to bring you the latest insights and discoveries from technology, artificial intelligence, and agriculture. Our goal is to provide accurate, research-driven content that inspires innovation and learning.</p>
+
+                    <h2>What We Cover</h2>
+                    <ul>
+                        <li><strong>Technology:</strong> Software development, emerging tech trends, and practical coding tips.</li>
+                        <li><strong>Artificial Intelligence:</strong> Machine learning, data science, and AI applications in real-world scenarios.</li>
+                        <li><strong>Agriculture:</strong> Smart farming techniques, sustainable practices, and modern agricultural tech.</li>
+                        <li><strong>Innovation & Research:</strong> New ideas, discoveries, and breakthroughs shaping our world.</li>
+                    </ul>
+
+                    <h2>Our Vision</h2>
+                    <p>To create a platform that connects curious minds with practical knowledge and expert insights, fostering growth and innovation across multiple fields.</p>
+
+                    <h2>Connect With Us</h2>
+                    <p>If you have ideas, feedback, or collaboration opportunities, feel free to reach out via our <a href="{% url 'contact' %}">Contact page</a>. We love hearing from fellow enthusiasts of tech, AI, and agriculture.</p>
+                </div>
+
+            </div>
+
+            <!-- sidebar column -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+
+                    <!-- Popular Posts Widget -->
+                    <div class="widget rounded">
+                        <div class="widget-header text-center">
+                            <h3 class="widget-title">Popular Posts</h3>
+                            <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave" />
+                        </div>
+                        <div class="widget-content">
+                            {% for post in popular|slice:":3" %}
+                            <div class="post post-list-sm circle">
+                                <div class="thumb circle">
+                                    <a href="{% url 'blog_detail' post.pk %}">
+                                        <div class="inner">
+                                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="details clearfix">
+                                    <h6 class="post-title my-0"><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a></h6>
+                                    <ul class="meta list-inline mt-1 mb-0">
+                                        <li class="list-inline-item">{{ post.created_at|date:"d M Y" }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Widget -->
+                    <div class="widget rounded">
+                        <div class="widget-header text-center">
+                            <h3 class="widget-title">Newsletter</h3>
+                            <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave" />
+                        </div>
+                        <div class="widget-content">
+                            <span class="newsletter-headline text-center mb-3">Join 70,000 subscribers!</span>
+                            <form>
+                                <div class="mb-2">
+                                    <input class="form-control w-100 text-center" placeholder="Email address…" type="email">
+                                </div>
+                                <button class="btn btn-default btn-full" type="submit">Sign Up</button>
+                            </form>
+                            <span class="newsletter-privacy text-center mt-3">By signing up, you agree to our <a href="#">Privacy Policy</a></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock body %}

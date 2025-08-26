@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us{% endblock title %}
+
+{% block body %}
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container-xl">
+        <div class="text-center">
+            <h1 class="mt-0 mb-2">Contact Us</h1>
+            <p class="lead">Get in touch with us for inquiries, suggestions, or collaborations</p>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="main-content">
+    <div class="container-xl">
+        <div class="row gy-4">
+
+            <!-- Main Column -->
+            <div class="col-lg-8">
+
+                <!-- Contact Form -->
+                <div class="padding-30 rounded bordered">
+                    <h2>Send Us a Message</h2>
+                    <p>If you have questions, ideas, or want to collaborate, fill out the form below. We'll get back to you as soon as possible.</p>
+                    <form method="POST" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Your full name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Your email address" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" name="message" rows="6" placeholder="Write your message..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-default btn-full">Send Message</button>
+                    </form>
+                </div>
+
+                <!-- Contact Information -->
+                <div class="padding-30 rounded bordered mt-4">
+                    <h2>Contact Information</h2>
+                    <p>Feel free to reach us directly via email or phone:</p>
+                    <ul class="list-unstyled">
+                        <li><strong>Email:</strong> <a href="mailto:ismailbhuyan.dev@gmail.com">ismailbhuyan.dev@gmail.com</a></li>
+                        <li><strong>Phone:</strong> 01989523616</li>
+                        <li><strong>Address:</strong> 516 South Shajahanpur, Dhaka 1217, Bangladesh</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Sidebar Column -->
+            <div class="col-lg-4">
+                <div class="sidebar">
+
+                    <!-- Popular Posts Widget -->
+                    <div class="widget rounded">
+                        <div class="widget-header text-center">
+                            <h3 class="widget-title">Popular Posts</h3>
+                            <img src="{% static 'images/wave.svg' %}" class="wave" alt="wave" />
+                        </div>
+                        <div class="widget-content">
+                            {% for post in popular|slice:":3" %}
+                            <div class="post post-list-sm circle">
+                                <div class="thumb circle">
+                                    <a href="{% url 'blog_detail' post.pk %}">
+                                        <div class="inner">
+                                            <img src="{{ post.image.url }}" alt="{{ post.title }}">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="details clearfix">
+                                    <h6 class="post-title my-0">
+                                        <a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a>
+                                    </h6>
+                                    <ul class="meta list-inline mt-1 mb-0">
+                                        <li class="list-inline-item">{{ post.created_at|date:"d M Y" }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock body %}
